@@ -30,14 +30,30 @@
     
     <% if current_user %>
       <%= form_for [@product, @review] do |f|%>
-        <div> Description: <%= f.text_field :description %> </div>
-        <div> Rating: <%= f.select(:rating, options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]])) %> </div>
+        <ul> 
+          <% @review.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+        <div> 
+          <%= f.label :description %> 
+          <%= f.text_field :description %> 
+        </div>
+        <div> 
+          <%= f.label :rating %> 
+          <%= f.select(:rating, options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]])) %> 
+        </div>
       <%= f.submit "Submit" %>
       <% end %>
     <% end %>
 
     <% @product.reviews.reverse_each do |review|%>
-      <div>Ratings: <%= review.rating%>, Description: <%= review.description%> </div>
+      <div>
+        Ratings: <%= review.rating%>, Description: <%= review.description%>
+        <% if current_user && current_user.id == review.user_id %>
+          <%= link_to 'Delete', product_review_path(@product, review), method: :delete %>
+        <% end %>
+      </div>
     <% end %>
     
   </article>

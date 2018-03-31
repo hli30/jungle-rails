@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to :root , notice: 'User created!'
     else
-      redirect_to '/users/new'
+      render new_user_path
     end
   end
 

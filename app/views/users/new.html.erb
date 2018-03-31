@@ -1,6 +1,11 @@
 <h1>Register</h1>
 
-  <%= form_for @user do |f| %> 
+  <%= form_for @user do |f| %>
+    <ul> 
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
     <table>
       <tr>
         <td>First Name:</td> 
