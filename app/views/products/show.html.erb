@@ -26,6 +26,20 @@
       </div>
     </div>
 
+    <h2>Reviews</h2>
+    
+    <% if current_user %>
+      <%= form_for [@product, @review] do |f|%>
+        <div> Description: <%= f.text_field :description %> </div>
+        <div> Rating: <%= f.select(:rating, options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]])) %> </div>
+      <%= f.submit "Submit" %>
+      <% end %>
+    <% end %>
+
+    <% @product.reviews.reverse_each do |review|%>
+      <div>Ratings: <%= review.rating%>, Description: <%= review.description%> </div>
+    <% end %>
+    
   </article>
 
 </section>
