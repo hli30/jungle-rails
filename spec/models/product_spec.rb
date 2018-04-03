@@ -11,15 +11,15 @@ RSpec.describe Product, type: :model do
     it 'should fail if no name' do
       @category = Category.new
       @product = @category.products.new({name: nil, price: 10, quantity: 5, category: @category})
-      expect(@product.save).to be_falsy
-      expect(@product.errors.full_messages).to contain_exactly("Name can't be blank")
+      @product.valid?
+      expect(@product.errors[:name]).to contain_exactly("can't be blank")
 
     end
 
     it 'should fail if no price' do
       @category = Category.new
       @product = @category.products.new({name: 'name', price: nil, quantity: 5, category: @category})
-      expect(@product.save).to be_falsy
+      @product.save
       expect(@product.errors.full_messages).to include("Price can't be blank")
 
     end
